@@ -1,15 +1,13 @@
-import React from 'react'
+import React, { Component } from 'react'
 import BlogPost from './BlogPost';
-import { blogPosts } from '../data/blogPosts';
 
-const BlogIndex = (props) => (
+const BlogIndex = (posts) => (
     <div>
-        {blogPosts
+        {posts
             .sort((a, b) => (
                 Date.parse(a.date) > Date.parse(b.date) ? -1 :
                     Date.parse(a.date) < Date.parse(b.date) ? 1 : 0
             ))
-            // .reverse()
             .map(
                 post => (
                     <BlogPost 
