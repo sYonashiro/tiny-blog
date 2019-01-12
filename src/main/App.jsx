@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import BlogIndex from '../blog/pages/IndexPage';
 
 // class App extends Component {
 //     constructor(props) {
@@ -23,11 +24,13 @@ import React, { Component } from 'react'
 //     )
 // }
 
-const App = (props) => (
-    <div>
+// export default App
+
+export default (props) => (
+    <div className="container">
         <h1>{props.title}</h1>
         <h2 className="small">{props.subtitle}</h2>
+        <hr/>
+        <BlogIndex/>
     </div>
 )
-
-export default App
