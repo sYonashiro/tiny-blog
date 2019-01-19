@@ -19,7 +19,7 @@ export default class TextArea extends Component {
         return(
             <div className="form-group">
                 <label htmlFor="content">Content</label>
-                <textarea name={this.props.name} id={this.props.id} className="form-control" rows="5"
+                <textarea name={this.props.name} id={this.props.id} className="form-control" rows={this.props.rows}
                           value={this.props.content}
                           onChange={this.props.onFieldChange}
                           onKeyPress={this.setCharactersCount}>

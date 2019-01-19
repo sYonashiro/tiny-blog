@@ -1,5 +1,7 @@
 import React from 'react'
-import TextArea from '../components/TextArea';
+import TextArea from '../components/TextArea'
+import { savePost, fieldChange } from '../actions/blogActions'
+import { connect } from 'react-redux'
 
 const BlogForm = (props) => (
     <div>
@@ -26,7 +28,7 @@ const BlogForm = (props) => (
             </select>
         </div>
 
-        <TextArea name="content" id="content" content={props.tempPost.content} onFieldChange={props.onFieldChange} />
+        <TextArea name="content" id="content" rows="5" content={props.tempPost.content} onFieldChange={props.onFieldChange} />
 
         <div>
             <button className="btn btn-primary" 
@@ -38,4 +40,21 @@ const BlogForm = (props) => (
     </div>
 )
 
-export default BlogForm
+const mapStateToProps = (state) => {
+    return {
+        tempPost: state.blog.tempPost
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onFieldChange:  (event) => dispatch(
+            fieldChange(event)
+        ), 
+        onSaveClick: () => dispatch(
+            savePost()
+        )
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlogForm)
