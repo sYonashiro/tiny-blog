@@ -2,6 +2,8 @@ import React from 'react'
 import TextArea from '../components/TextArea'
 import { savePost, fieldChange } from '../actions/blogActions'
 import { connect } from 'react-redux'
+import Select from 'react-select'
+import { TAGS } from '../data/tags';
 
 const BlogForm = (props) => (
     <div>
@@ -17,15 +19,20 @@ const BlogForm = (props) => (
 
         <div className="form-group">
             <label htmlFor="tags">Tag</label>
-            <select name="tags" id="tags" className="form-control"
-                    value={props.tempPost.tags}
-                    onChange={props.onFieldChange}
-            >
-                <option value="">-- Select --</option>
-                <option value="food">Food</option>
-                <option value="sports">Sports</option>
-                <option value="variety">Variety</option>
-            </select>
+            <Select 
+                isMulti
+                closeMenuOnSelect={false}
+                name="tags"
+                options={TAGS}
+                className="basic multi-select"
+                value={props.tempPost.tags}
+                onChange={(value, obj) => props.onFieldChange({
+                    target: {
+                        name: obj.name,
+                        value
+                    }
+                })
+            }  />
         </div>
 
         <TextArea name="content" id="content" rows="5" content={props.tempPost.content} onFieldChange={props.onFieldChange} />
