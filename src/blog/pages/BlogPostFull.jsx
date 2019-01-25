@@ -1,8 +1,9 @@
 import React from 'react'
 import BlogPostHeader from './BlogPostHeader'
 import { connect } from 'react-redux'
+import { deletePost } from '../actions/blogActions';
 
-const BlogPostFull = ({ id, posts }) => {
+const BlogPostFull = ({ id, posts, onDeleteClick }) => {
     const post = posts.find(post => post.id === id)
 
     if (post === undefined) {
@@ -26,7 +27,7 @@ const BlogPostFull = ({ id, posts }) => {
                 )}
 
             <a href={"/post/edit/" + post.id}>[edit]</a>{' '}
-            <a href="/">[delete]</a>
+            <a href={"/post/delete/" + post.id} onClick={(e) => onDeleteClick(e, post.id)}>[delete]</a>
         </div>
     )
 }
@@ -40,4 +41,16 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps)(BlogPostFull)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onDeleteClick: (event, id) => {
+            console.log(id)
+            event.preventDefault();
+            return dispatch(
+                deletePost(id)
+            )
+        } 
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlogPostFull)

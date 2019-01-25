@@ -1,5 +1,5 @@
 import { INITIAL_STATE, INITIAL_TEMP_STATE } from "../data/initialState"
-import { SAVE_POST, FIELD_CHANGE } from "../actions/blogActions"
+import { SAVE_POST, FIELD_CHANGE, DELETE_POST } from "../actions/blogActions"
 
 const isValidPost = (post) => {
     if (post.title !== undefined && post.title !== '' &&
@@ -54,6 +54,16 @@ export const blogReducer = (state=INITIAL_STATE, action) => {
                 errors: {...state.errors}
             }
             
+        case DELETE_POST:
+            console.log('blogReducer DELETE_POST called')
+            const id = action.postId
+            return {
+                ...state,
+                posts: state.posts.filter(x => x.id !== id),
+                tempPost: {...INITIAL_TEMP_STATE},
+                errors: {...state.errors}
+            }
+
         default:
             console.log('blogReducer default called')
             return state        
