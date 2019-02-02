@@ -1,9 +1,10 @@
 import React from 'react'
 import BlogPostHeader from './BlogPostHeader'
 import { connect } from 'react-redux'
-import { deletePost } from '../actions/blogActions';
+import { deletePost, editPost } from '../actions/blogActions'
+import { Link } from 'react-router-dom'
 
-const BlogPostFull = ({ id, posts, onDeleteClick }) => {
+const BlogPostFull = ({ id, posts, onDeleteClick, onEditClick }) => {
     const post = posts.find(post => post.id === id)
 
     if (post === undefined) {
@@ -26,7 +27,7 @@ const BlogPostFull = ({ id, posts, onDeleteClick }) => {
                     text => (<p key={i++}>{text}</p>)
                 )}
 
-            <a href={"/post/edit/" + post.id}>[edit]</a>{' '}
+            <Link to="/post/edit/" onClick={(e) => onEditClick(post)}>[edit]</Link>{' '}
             <a href={"/post/delete/" + post.id} onClick={(e) => onDeleteClick(e, post.id)}>[delete]</a>
         </div>
     )
@@ -44,12 +45,16 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onDeleteClick: (event, id) => {
-            console.log(id)
-            event.preventDefault();
+            event.preventDefault()
             return dispatch(
                 deletePost(id)
             )
-        } 
+        },
+        onEditClick: (post) => {
+            return dispatch(
+                editPost(post)
+            )
+        }
     }
 }
 

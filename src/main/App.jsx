@@ -17,10 +17,6 @@ export default class App extends Component {
         }
     }
 
-    handleUpdate(id, post) {
-
-    }
-
     render() {
         return (            
             <BrowserRouter>
@@ -36,6 +32,7 @@ export default class App extends Component {
                     <Switch>
                         <Route exact path="/" component={BlogIndex} />
                         <Route exact path="/post/add" component={BlogForm} />
+                        <Route exact path="/post/edit" component={BlogForm} />
                         <Route exact path="/post/:id" component={
                             ({ match }) => (
                                 <BlogPostFull id={parseInt(match.params.id)} />
