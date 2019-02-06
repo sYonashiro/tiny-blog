@@ -27,12 +27,11 @@ export const blogReducer = (state=INITIAL_STATE, action) => {
 
         case SAVE_POST:
             console.log('blogReducer SAVE_POST called')
-            
+
             let post = {
                 ...state.tempPost,
                 tags: state.tempPost.tags === undefined ? [] : 
-                    [...state.tempPost.tags.map(tag => (tag.value))],
-                date: new Date().toLocaleString('en-US')
+                    [...state.tempPost.tags.map(tag => (tag.value))]
             }
 
             if (!isValidPost(post)) {
@@ -42,30 +41,27 @@ export const blogReducer = (state=INITIAL_STATE, action) => {
                 }
             }
 
+
             if (post.id === 0) {
                 const newId = 1 + state.posts.reduce(
                     (id, post) => (id > post.id ? id : post.id), 0
                 )
-                posts = [...state.posts, { ...post, id: newId }]
+                posts = [...state.posts, { 
+                    ...post, 
+                    id: newId,
+                    date: new Date().toLocaleString('en-US') 
+                }]
             } else {
                 posts = [...state.posts.map(postAtual =>
                     postAtual.id === post.id ? { ...post } : { ...postAtual }
                 )]
             }
 
-            // posts = [...state.posts, post]
-            //     .map(
-            //         (postAtual, index) => ({
-            //             ...postAtual,
-            //             id: index + 1
-            //         })
-            //     )
-
             return {
                 ...state,
                 posts: [...posts],
                 tempPost: {...INITIAL_TEMP_STATE},
-                errors: {...state.errors}
+                errors: []
             }
             
         case DELETE_POST:
@@ -74,19 +70,22 @@ export const blogReducer = (state=INITIAL_STATE, action) => {
                 ...state,
                 posts: state.posts.filter(x => x.id !== action.postId),
                 tempPost: {...INITIAL_TEMP_STATE},
-                errors: {...state.errors}
+                errors: []
             }
 
         case EDIT_POST:
             console.log('blogReducer EDIT_POST called')
-            
-            // let editPost = state.posts.find(x => x.id === action.postId)
-            // console.log(editPost)
+
+            let tagsWithLabel = action.payload.tags.map(x => ({
+                value: x, 
+                label: state.tags.find(y => y.value === x).label
+            }))
 
             return {
                 ...state,
                 tempPost: {
-                    ...action.payload
+                    ...action.payload,
+                    tags: tagsWithLabel
                 }
             }
 
