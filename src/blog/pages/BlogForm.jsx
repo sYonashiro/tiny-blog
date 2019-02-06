@@ -39,21 +39,31 @@ const BlogForm = (props) => {
 
             <TextArea name="content" id="content" rows="5" content={props.tempPost.content} onFieldChange={props.onFieldChange} />
             
+            {props.errors.length === 0 ? null : (
+                <ul className="alert alert-danger"> 
+                    {props.errors.map(error => (<li key={0}>{error}</li>))}
+                </ul>
+            )}
+
             <div>
                 <button className="btn btn-primary" 
                         onClick={props.onSaveClick}>
                     Save
                 </button>{' '}
-                <button className="btn btn-secondary">Cancel</button>
+                <button className="btn btn-secondary" onClick={() => { props.history.push('/') }}>Cancel</button>
             </div>
         </div>
     )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+    console.log('errors', state.blog.errors)
+    
     return {
         tempPost: state.blog.tempPost,
-        posts: state.blog.posts
+        posts: state.blog.posts,
+        errors: state.blog.errors,
+        ...ownProps
     }
 }
 
