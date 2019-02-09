@@ -1,17 +1,6 @@
 import { INITIAL_STATE, INITIAL_TEMP_STATE } from "../data/initialState"
 import { SAVE_POST, FIELD_CHANGE, DELETE_POST, EDIT_POST } from "../actions/blogActions"
 
-const isValidPost = (post) => {
-    if (post.title !== undefined && post.title !== '' &&
-        post.tags !== undefined && post.tags.length > 0 &&
-        post.content !== undefined && post.content !== '') {
-        
-        return true
-    }
-
-    return false
-}
-
 export const blogReducer = (state=INITIAL_STATE, action) => {
     let posts = []
     switch(action.type) {
