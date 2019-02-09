@@ -35,7 +35,7 @@ export default class App extends Component {
                         <Route exact path="/post/edit" component={BlogForm} />
                         <Route exact path="/post/:id" component={
                             ({ match, history }) => (
-                                <BlogPostFull id={parseInt(match.params.id)} history={history} />
+                                <BlogPostFull id={match.params.id} history={history} />
                             )
                         } />
                         <Route component={() => (<div>404 - Not Found</div>)} />

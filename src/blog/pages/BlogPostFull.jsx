@@ -5,7 +5,7 @@ import { deletePost, editPost } from '../actions/blogActions'
 import { Link } from 'react-router-dom'
 
 const BlogPostFull = ({ id, posts, onDeleteClick, onEditClick, history }) => {
-    const post = posts.find(post => post.id === id)
+    const post = posts.find(post => post._id === id)
 
     if (post === undefined) {
         return (
@@ -29,7 +29,7 @@ const BlogPostFull = ({ id, posts, onDeleteClick, onEditClick, history }) => {
 
             <Link to="/">[back]</Link>{' '}
             <Link to="/post/edit/" onClick={(e) => onEditClick(post)}>[edit]</Link>{' '}
-            <a href="/" onClick={(e) => onDeleteClick(e, post.id, history)}>[delete]</a>
+            <a href="/" onClick={(e) => onDeleteClick(e, post._id, history)}>[delete]</a>
         </div>
     )
 }

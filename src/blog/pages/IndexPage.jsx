@@ -12,7 +12,7 @@ const BlogIndex = ({ posts }) => (
             .map(
                 post => (
                     <BlogPost 
-                        key={post.id} 
+                        key={post._id} 
                         post={post} />
             )
         )}

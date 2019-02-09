@@ -47,7 +47,7 @@ const BlogForm = (props) => {
 
             <div>
                 <button className="btn btn-primary" 
-                        onClick={props.onSaveClick}>
+                        onClick={() => props.onSaveClick(props.tempPost)}>
                     Save
                 </button>{' '}
                 <button className="btn btn-secondary" onClick={() => { props.history.push('/') }}>Cancel</button>
@@ -72,8 +72,8 @@ const mapDispatchToProps = (dispatch) => {
         onFieldChange:  (event) => dispatch(
             fieldChange(event)
         ), 
-        onSaveClick: () => dispatch(
-            savePost()
+        onSaveClick: (tempPost) => dispatch(
+            savePost(tempPost)
         )
     }
 }
