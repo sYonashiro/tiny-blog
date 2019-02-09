@@ -28,39 +28,17 @@ export const blogReducer = (state=INITIAL_STATE, action) => {
         case SAVE_POST:
             console.log('blogReducer SAVE_POST called')
 
-            let post = {
-                ...state.tempPost,
-                tags: state.tempPost.tags === undefined ? [] : 
-                    [...state.tempPost.tags.map(tag => (tag.value))]
-            }
-
-            if (!isValidPost(post)) {
+            if (action.payload.posts === undefined) {
                 return {
                     ...state,
-                    errors: ["Erro ao adicionar post."]
+                    errors: [...action.payload.errors]
                 }
-            }
-
-
-            if (post.id === 0) {
-                const newId = 1 + state.posts.reduce(
-                    (id, post) => (id > post.id ? id : post.id), 0
-                )
-                posts = [...state.posts, { 
-                    ...post, 
-                    id: newId,
-                    date: new Date().toLocaleString('en-US') 
-                }]
-            } else {
-                posts = [...state.posts.map(postAtual =>
-                    postAtual.id === post.id ? { ...post } : { ...postAtual }
-                )]
             }
 
             return {
                 ...state,
-                posts: [...posts],
-                tempPost: {...INITIAL_TEMP_STATE},
+                posts: [...action.payload.posts],
+                tempPost: { ...INITIAL_TEMP_STATE },
                 errors: []
             }
             
