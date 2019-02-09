@@ -9,7 +9,7 @@ const BlogForm = (props) => {
 
     return (
         <div>
-            <h2><p>{props.tempPost.id === 0 ? 'Add' : 'Edit'} post</p></h2>
+            <h2><p>{props.tempPost._id === 0 ? 'Add' : 'Edit'} post</p></h2>
 
             <div className="form-group">
                 <label htmlFor="title">Title</label>
